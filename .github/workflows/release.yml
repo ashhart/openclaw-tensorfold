@@ -1,0 +1,41 @@
+name: release
+
+# Run on a version tag (gh workflow run release.yml --ref vX.Y.Z): npm and ClawHub trust this file and the release environment, so no token is stored.
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  publish:
+    if: startsWith(github.ref, 'refs/tags/v')
+    runs-on: ubuntu-latest
+    environment: release
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: "24"
+          registry-url: https://registry.npmjs.org
+      - run: npm install -g npm@11.20.0
+      - run: npm ci
+      - name: The tag names the package version
+        run: test "v$(node -p 'require("./package.json").version')" = "$GITHUB_REF_NAME"
+      - run: npm run typecheck
+      - run: npm test
+      - name: Pack one tarball for both registries
+        run: |
+          npm pack --pack-destination "$RUNNER_TEMP"
+          echo "TARBALL=$(ls "$RUNNER_TEMP"/openclaw-tensorfold-*.tgz)" >> "$GITHUB_ENV"
+          sha256sum "$RUNNER_TEMP"/openclaw-tensorfold-*.tgz
+      - name: Publish to npm with trusted publishing
+        run: npm publish "$TARBALL" --access public
+      - name: Publish the same tarball to ClawHub with trusted publishing
+        run: >-
+          npx -y clawhub@0.26.0 package publish "$TARBALL"
+          --source-repo "$GITHUB_REPOSITORY" --source-commit "$GITHUB_SHA" --source-ref "$GITHUB_REF_NAME"
+          --topics tensorfold,local-llm,provider

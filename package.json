@@ -1,6 +1,6 @@
 {
   "name": "openclaw-tensorfold",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "OpenClaw provider plugin for TensorFold: OpenClaw starts tensorfold serve on demand, or connects to a running server",
   "type": "module",
   "license": "Apache-2.0",
@@ -21,6 +21,7 @@
     "assets/icon.png",
     "openclaw.plugin.json",
     "README.md",
+    "CHANGELOG.md",
     "LICENSE",
     "NOTICE"
   ],

@@ -131,9 +131,21 @@ OpenClaw:
 
 ```sh
 npm pack
-openclaw plugins install npm-pack:./openclaw-tensorfold-0.2.2.tgz --force
+openclaw plugins install npm-pack:./openclaw-tensorfold-0.2.3.tgz --force
 openclaw plugins inspect tensorfold --runtime --json
 ```
+
+## Releasing
+
+Bump `version` in `package.json`, add a `CHANGELOG.md` entry, push a matching `vX.Y.Z` tag, then run the release
+workflow on it:
+
+```sh
+gh workflow run release.yml --ref vX.Y.Z
+```
+
+It tests the tag, packs one tarball and publishes it to npm and ClawHub with trusted publishing, in the `release`
+environment that only version tags can use. npm adds a provenance statement that links the package to its commit.
 
 ## License
 
