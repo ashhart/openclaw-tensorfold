@@ -31,6 +31,9 @@ value.
 
 ## Install and connect
 
+The package isn't on ClawHub or npm yet. Until it is, build it from source as shown under
+[Development](#development) and install the packed tarball.
+
 ```sh
 openclaw plugins install openclaw-tensorfold
 export TENSORFOLD_API_KEY=<a key from server.keys>
