@@ -1,7 +1,7 @@
 {
   "name": "openclaw-tensorfold",
-  "version": "0.1.0",
-  "description": "OpenClaw provider plugin for TensorFold: models and context windows from the native server",
+  "version": "0.2.0",
+  "description": "OpenClaw provider plugin for TensorFold: OpenClaw starts tensorfold serve on demand, or connects to a running server",
   "type": "module",
   "license": "MIT",
   "keywords": [

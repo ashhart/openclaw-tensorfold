@@ -1,7 +1,7 @@
 {
   "id": "tensorfold",
   "name": "TensorFold",
-  "description": "TensorFold's native server as a model provider, with models and context windows from its /v1/models",
+  "description": "TensorFold as a model provider: OpenClaw can start tensorfold serve on demand, or connect to a running server",
   "categories": [
     "models"
   ],
@@ -40,6 +40,10 @@
         "id": "tensorfold",
         "envVars": [
           "TENSORFOLD_API_KEY"
+        ],
+        "authMethods": [
+          "local",
+          "api-key"
         ]
       }
     ]
@@ -47,10 +51,22 @@
   "providerAuthChoices": [
     {
       "provider": "tensorfold",
+      "method": "local",
+      "choiceId": "tensorfold-local",
+      "choiceLabel": "TensorFold on this computer",
+      "choiceHint": "OpenClaw starts tensorfold serve when a request needs it",
+      "groupId": "tensorfold",
+      "groupLabel": "TensorFold",
+      "groupHint": "Local TensorFold inference",
+      "appGuidedDiscovery": true,
+      "appGuidedActionLabel": "Start TensorFold on this computer"
+    },
+    {
+      "provider": "tensorfold",
       "method": "api-key",
       "choiceId": "tensorfold-api-key",
-      "choiceLabel": "TensorFold",
-      "choiceHint": "Local or self-hosted TensorFold server (tensorfold serve)",
+      "choiceLabel": "TensorFold server already running",
+      "choiceHint": "Connect to a tensorfold serve you start yourself",
       "groupId": "tensorfold",
       "groupLabel": "TensorFold",
       "groupHint": "Local or self-hosted TensorFold server"

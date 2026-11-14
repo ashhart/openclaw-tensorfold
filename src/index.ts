@@ -8,13 +8,14 @@ import {
   hasConfiguredModels,
   resolveBaseUrl,
 } from "./models.js";
+import { configureLocalNonInteractive, detectLocal, prepareDetected, runLocalSetup } from "./setup.js";
 
 const LABEL = "TensorFold";
 
 export default definePluginEntry({
   id: PROVIDER_ID,
   name: LABEL,
-  description: "TensorFold's native server as a model provider, with models and context windows from its /v1/models",
+  description: "TensorFold as a model provider: OpenClaw can start tensorfold serve on demand, or connect to a running server",
   register(api) {
     api.registerProvider({
       id: PROVIDER_ID,
@@ -36,6 +37,19 @@ export default definePluginEntry({
             return models[0] ? `${PROVIDER_ID}/${models[0].id}` : undefined;
           },
         }),
+        {
+          id: "local",
+          label: "TensorFold on this computer",
+          hint: "OpenClaw starts tensorfold serve when a request needs it, and can stop it when idle",
+          kind: "custom",
+          run: runLocalSetup,
+          runNonInteractive: configureLocalNonInteractive,
+          appGuidedSetup: {
+            detectAvailability: async (ctx) => Boolean(await detectLocal(ctx)),
+            detect: detectLocal,
+            prepare: prepareDetected,
+          },
+        },
       ],
       catalog: {
         order: "late",
