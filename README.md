@@ -99,10 +99,10 @@ OpenClaw:
 
 ```sh
 npm pack
-openclaw plugins install npm-pack:./openclaw-tensorfold-0.2.0.tgz --force
+openclaw plugins install npm-pack:./openclaw-tensorfold-0.2.1.tgz --force
 openclaw plugins inspect tensorfold --runtime --json
 ```
 
 ## License
 
-MIT
+Apache-2.0, the same license as TensorFold (see `LICENSE` and `NOTICE`). Releases 0.1.0 and 0.2.0 were MIT.
