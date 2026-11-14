@@ -25,7 +25,7 @@
   "scripts": {
     "build": "tsc -p tsconfig.json",
     "typecheck": "tsc -p tsconfig.json --noEmit",
-    "test": "npm run build && node --test test/"
+    "test": "npm run build && node --test \"test/*.test.mjs\""
   },
   "peerDependencies": {
     "openclaw": ">=2026.11.3"
