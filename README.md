@@ -1,13 +1,45 @@
-# openclaw-tensorfold
+<p align="center">
+  <img src="https://raw.githubusercontent.com/ashhart/openclaw-tensorfold/main/assets/banner.png" alt="TensorFold" width="100%">
+</p>
 
-An [OpenClaw](https://github.com/openclaw/openclaw) provider plugin for [TensorFold](https://github.com/ashhart/TensorFold).
-OpenClaw starts `tensorfold serve` on your computer when a request needs it, or connects to a TensorFold server you
-run yourself.
+<h1 align="center">TensorFold for OpenClaw</h1>
 
-The plugin adds a `tensorfold` provider. Instead of a hand-written model list, it reads the server's `/v1/models`, so
-OpenClaw gets each served model's real context window, whether it takes images, and the reasoning effort levels its
-chat template understands. OpenClaw's thinking levels then go to the server as `reasoning_effort`, and "off" becomes
-`none` when the template can switch thinking off.
+<p align="center">
+  Run OpenClaw's agent on your own Mac or NVIDIA GPU. OpenClaw starts TensorFold when a request needs it.
+</p>
+
+<p align="center">
+  <a href="https://clawhub.ai/ashhart/plugins/openclaw-tensorfold"><img src="https://img.shields.io/badge/ClawHub-openclaw--tensorfold-e8492f" alt="ClawHub"></a>
+  <a href="https://www.npmjs.com/package/openclaw-tensorfold"><img src="https://img.shields.io/npm/v/openclaw-tensorfold?color=6b4dff" alt="npm"></a>
+  <a href="https://github.com/ashhart/openclaw-tensorfold/actions/workflows/ci.yml"><img src="https://github.com/ashhart/openclaw-tensorfold/actions/workflows/ci.yml/badge.svg" alt="CI"></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/license-Apache--2.0-2d6cdf" alt="Apache-2.0"></a>
+</p>
+
+[TensorFold](https://github.com/ashhart/TensorFold) serves language models from a single Zig binary on Apple Silicon
+and NVIDIA GPUs, with no Python or MLX to install. This plugin makes it an OpenClaw model provider.
+
+## Quick start
+
+```sh
+brew install ashhart/tensorfold/tensorfold
+openclaw plugins install clawhub:openclaw-tensorfold
+openclaw onboard --auth-choice tensorfold-local
+```
+
+Setup asks for a model, a context window and whether to stop TensorFold when idle. After that, the next agent turn
+starts TensorFold on its own.
+
+## What you get
+
+- **TensorFold starts on demand.** OpenClaw launches `tensorfold serve` on the first request that needs it, and stops
+  it when OpenClaw exits or after an idle time you choose.
+- **The model's real limits.** The provider reads `/v1/models`, so OpenClaw knows each model's context window,
+  whether it takes images, and the reasoning levels its chat template names, instead of guessing from the name.
+- **Thinking levels that land.** OpenClaw's thinking levels reach the server as `reasoning_effort`, and off becomes
+  `none` only when the template can switch thinking off.
+- **Private by default.** The server listens on `127.0.0.1` behind a key kept in a file only you can read.
+- **Your own server works too.** Point the provider at a `tensorfold serve` you run yourself, on this computer or
+  another.
 
 ## Requirements
 
@@ -99,7 +131,7 @@ OpenClaw:
 
 ```sh
 npm pack
-openclaw plugins install npm-pack:./openclaw-tensorfold-0.2.1.tgz --force
+openclaw plugins install npm-pack:./openclaw-tensorfold-0.2.2.tgz --force
 openclaw plugins inspect tensorfold --runtime --json
 ```
 
