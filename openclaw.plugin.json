@@ -1,0 +1,64 @@
+{
+  "id": "tensorfold",
+  "name": "TensorFold",
+  "description": "TensorFold's native server as a model provider, with models and context windows from its /v1/models",
+  "categories": [
+    "models"
+  ],
+  "activation": {
+    "onStartup": false
+  },
+  "enabledByDefault": true,
+  "providers": [
+    "tensorfold"
+  ],
+  "modelCatalog": {
+    "discovery": {
+      "tensorfold": "refreshable"
+    }
+  },
+  "providerRequest": {
+    "providers": {
+      "tensorfold": {
+        "family": "tensorfold",
+        "openAICompletions": {
+          "supportsStreamingUsage": true
+        }
+      }
+    }
+  },
+  "modelPricing": {
+    "providers": {
+      "tensorfold": {
+        "external": false
+      }
+    }
+  },
+  "setup": {
+    "providers": [
+      {
+        "id": "tensorfold",
+        "envVars": [
+          "TENSORFOLD_API_KEY"
+        ]
+      }
+    ]
+  },
+  "providerAuthChoices": [
+    {
+      "provider": "tensorfold",
+      "method": "api-key",
+      "choiceId": "tensorfold-api-key",
+      "choiceLabel": "TensorFold",
+      "choiceHint": "Local or self-hosted TensorFold server (tensorfold serve)",
+      "groupId": "tensorfold",
+      "groupLabel": "TensorFold",
+      "groupHint": "Local or self-hosted TensorFold server"
+    }
+  ],
+  "configSchema": {
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {}
+  }
+}
