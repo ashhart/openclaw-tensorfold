@@ -31,14 +31,14 @@ value.
 
 ## Install and connect
 
-The package isn't on ClawHub or npm yet. Until it is, build it from source as shown under
-[Development](#development) and install the packed tarball.
-
 ```sh
-openclaw plugins install openclaw-tensorfold
+openclaw plugins install npm:openclaw-tensorfold
 export TENSORFOLD_API_KEY=<a key from server.keys>
 openclaw onboard --auth-choice tensorfold-api-key
 ```
+
+The package is on npm. It is also published to ClawHub, where `openclaw plugins install openclaw-tensorfold` works
+once ClawHub's review of the release finishes.
 
 Onboarding saves the key and sets the first served model as your default. To skip onboarding, keep
 `TENSORFOLD_API_KEY` in the environment. The plugin uses `http://127.0.0.1:8080/v1` (`tensorfold serve`'s default) unless
